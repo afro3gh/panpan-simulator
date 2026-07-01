@@ -1,0 +1,285 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Noto Sans JP', 'Helvetica Neue', Arial, sans-serif; font-size: 14px; color: #1a1a1a; background: #fff; padding: 1rem; }
+.wrap { max-width: 680px; margin: 0 auto; }
+.section-label { font-size: 11px; color: #888; font-weight: 500; letter-spacing: .05em; text-transform: uppercase; margin-bottom: 10px; }
+.sc-row { display: flex; gap: 8px; margin-bottom: 24px; }
+.sc-btn { flex: 1; padding: 8px 0; border-radius: 8px; border: 1.5px solid #ddd; background: #fff; color: #666; font-size: 13px; font-family: inherit; cursor: pointer; }
+.sc-btn.on { border-color: #2a78d6; background: #e6f1fb; color: #2a78d6; font-weight: 500; }
+.talent-box { background: #f5f5f3; border-radius: 12px; padding: 14px 16px; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+.talent-info { flex: 1; }
+.talent-title { font-size: 13px; font-weight: 500; }
+.talent-sub { font-size: 11px; color: #999; }
+.talent-val { font-size: 28px; font-weight: 700; color: #2a78d6; min-width: 60px; text-align: right; }
+.block-title { font-size: 11px; color: #999; font-weight: 500; letter-spacing: .04em; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid #eee; }
+.sns-block { background: #f5f5f3; border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; }
+.sns-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.sns-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.sns-title { font-size: 13px; font-weight: 500; flex: 1; }
+.sns-badge { font-size: 12px; color: #2a78d6; font-weight: 500; }
+.sl-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.sl-label { font-size: 12px; color: #666; min-width: 145px; line-height: 1.4; }
+.sl-row input[type=range] { flex: 1; accent-color: #2a78d6; }
+.sl-val { font-size: 12px; font-weight: 500; min-width: 74px; text-align: right; }
+.tag { font-size: 10px; border-radius: 3px; padding: 1px 5px; margin-left: 4px; }
+.tag-linked { background: #e6f1fb; color: #2a78d6; }
+.tag-manual { background: #f0f0f0; color: #888; cursor: pointer; border: 0.5px solid #ccc; }
+.imp-row { display: flex; align-items: center; gap: 8px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #e0e0e0; }
+.imp-label { font-size: 11px; color: #666; flex: 1; }
+.imp-calc { font-size: 11px; color: #bbb; }
+.imp-val { font-size: 14px; font-weight: 500; color: #2a78d6; min-width: 80px; text-align: right; }
+.price-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.price-label { font-size: 12px; color: #666; min-width: 145px; }
+.price-wrap { flex: 1; display: flex; align-items: center; gap: 6px; }
+.price-btn { width: 30px; height: 30px; border-radius: 6px; border: 1px solid #ccc; background: #fff; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: inherit; }
+.price-btn:hover { background: #f5f5f3; }
+.price-val { font-size: 12px; font-weight: 500; min-width: 80px; text-align: right; }
+.divider { border: none; border-top: 1px solid #eee; margin: 20px 0; }
+.summary-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(130px,1fr)); gap: 8px; margin-bottom: 20px; }
+.sns-card { background: #f5f5f3; border-radius: 8px; padding: 10px 12px; }
+.sns-card-head { display: flex; align-items: center; gap: 5px; margin-bottom: 5px; }
+.sns-card-name { font-size: 11px; font-weight: 500; color: #666; }
+.sns-card-imp { font-size: 15px; font-weight: 700; }
+.sns-card-land { font-size: 11px; color: #aaa; margin-top: 2px; }
+.fn-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.fn-label { font-size: 12px; color: #666; min-width: 150px; }
+.fn-track { flex: 1; background: #eee; border-radius: 4px; height: 28px; overflow: hidden; }
+.fn-bar { height: 100%; display: flex; align-items: center; padding-left: 8px; font-size: 12px; font-weight: 500; color: #fff; border-radius: 4px; }
+.fn-right { min-width: 110px; text-align: right; }
+.fn-count { font-size: 12px; font-weight: 500; display: block; }
+.fn-rate { font-size: 11px; color: #aaa; }
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(130px,1fr)); gap: 8px; margin-bottom: 20px; }
+.kpi { background: #f5f5f3; border-radius: 8px; padding: 12px 14px; }
+.kpi-l { font-size: 11px; color: #666; margin-bottom: 4px; }
+.kpi-v { font-size: 20px; font-weight: 700; }
+.kpi-s { font-size: 11px; color: #aaa; margin-top: 2px; }
+.kpi.hi .kpi-v { color: #2a78d6; }
+.tier-box { border: 1px solid #eee; border-radius: 12px; overflow: hidden; margin-bottom: 20px; }
+.tier-row { display: flex; align-items: center; padding: 9px 14px; border-bottom: 1px solid #eee; gap: 10px; }
+.tier-row:last-child { border-bottom: none; background: #f5f5f3; }
+.t-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.t-name { font-size: 12px; color: #666; min-width: 110px; }
+.t-detail { font-size: 13px; flex: 1; }
+.t-rev { font-size: 13px; font-weight: 500; text-align: right; min-width: 90px; }
+.t-rev.h { color: #2a78d6; }
+.t-rev.m { color: #ba7517; }
+.rev-table { width: 100%; border-collapse: collapse; font-size: 13px; border: 1px solid #eee; border-radius: 12px; overflow: hidden; }
+.rev-table th { background: #f5f5f3; padding: 8px 12px; text-align: left; font-weight: 500; font-size: 11px; color: #666; border-bottom: 1px solid #eee; }
+.rev-table td { padding: 9px 12px; border-bottom: 1px solid #eee; }
+.rev-table tr:last-child td { border-bottom: none; }
+.rev-table .row-total td { font-weight: 500; background: #f5f5f3; }
+.rev-table .row-agency td { color: #2a78d6; font-weight: 500; }
+.mb { margin-bottom: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="section-label">シナリオ</div>
+<div class="sc-row">
+  <button class="sc-btn" id="sc-0" onclick="setScenario(0)">保守的</button>
+  <button class="sc-btn on" id="sc-1" onclick="setScenario(1)">標準</button>
+  <button class="sc-btn" id="sc-2" onclick="setScenario(2)">上振れ</button>
+</div>
+
+<div class="section-label">タレント人数</div>
+<div class="talent-box mb">
+  <div class="talent-info">
+    <div class="talent-title">タレント人数</div>
+    <div class="talent-sub">全SNS×このタレント数で合算</div>
+  </div>
+  <input type="range" id="sl-talent" min="1" max="150" step="1" value="7" style="flex:2;accent-color:#2a78d6">
+  <div class="talent-val" id="v-talent">7人</div>
+</div>
+
+<div class="block-title mb">— SNS別フォロワー数・投稿設定 —</div>
+
+<div class="sns-block">
+  <div class="sns-header"><div class="sns-dot" style="background:#1d9e75"></div><div class="sns-title">TikTok</div><div class="sns-badge" id="tt-badge"></div></div>
+  <div class="sl-row"><div class="sl-label">フォロワー数</div><input type="range" id="tt-fw" min="0" max="500000" step="1000" value="13000"><div class="sl-val" id="tt-fw-v"></div></div>
+  <div class="sl-row"><div class="sl-label">月間投稿本数</div><input type="range" id="tt-posts" min="0" max="60" step="1" value="10"><div class="sl-val" id="tt-posts-v"></div></div>
+  <div class="sl-row"><div class="sl-label">1本あたり平均再生数<span class="tag tag-linked" id="tt-tag">フォロワー連動</span></div><input type="range" id="tt-views" min="0" max="500000" step="500" value="0"><div class="sl-val" id="tt-views-v"></div></div>
+  <div class="imp-row"><div class="imp-label">月間インプレッション</div><div class="imp-calc" id="tt-calc"></div><div class="imp-val" id="tt-imp"></div></div>
+</div>
+
+<div class="sns-block">
+  <div class="sns-header"><div class="sns-dot" style="background:#2a78d6"></div><div class="sns-title">X（Twitter）</div><div class="sns-badge" id="x-badge"></div></div>
+  <div class="sl-row"><div class="sl-label">フォロワー数</div><input type="range" id="x-fw" min="0" max="500000" step="1000" value="0"><div class="sl-val" id="x-fw-v"></div></div>
+  <div class="sl-row"><div class="sl-label">月間投稿本数</div><input type="range" id="x-posts" min="0" max="200" step="5" value="20"><div class="sl-val" id="x-posts-v"></div></div>
+  <div class="sl-row"><div class="sl-label">1投稿あたり平均表示数<span class="tag tag-linked" id="x-tag">フォロワー連動</span></div><input type="range" id="x-views" min="0" max="200000" step="100" value="0"><div class="sl-val" id="x-views-v"></div></div>
+  <div class="imp-row"><div class="imp-label">月間インプレッション</div><div class="imp-calc" id="x-calc"></div><div class="imp-val" id="x-imp"></div></div>
+</div>
+
+<div class="sns-block">
+  <div class="sns-header"><div class="sns-dot" style="background:#e34948"></div><div class="sns-title">Instagram</div><div class="sns-badge" id="ig-badge"></div></div>
+  <div class="sl-row"><div class="sl-label">フォロワー数</div><input type="range" id="ig-fw" min="0" max="500000" step="1000" value="0"><div class="sl-val" id="ig-fw-v"></div></div>
+  <div class="sl-row"><div class="sl-label">月間投稿本数</div><input type="range" id="ig-posts" min="0" max="60" step="1" value="10"><div class="sl-val" id="ig-posts-v"></div></div>
+  <div class="sl-row"><div class="sl-label">1本あたり平均再生数<span class="tag tag-linked" id="ig-tag">フォロワー連動</span></div><input type="range" id="ig-views" min="0" max="500000" step="100" value="0"><div class="sl-val" id="ig-views-v"></div></div>
+  <div class="imp-row"><div class="imp-label">月間インプレッション</div><div class="imp-calc" id="ig-calc"></div><div class="imp-val" id="ig-imp"></div></div>
+</div>
+
+<div class="sns-block mb">
+  <div class="sns-header"><div class="sns-dot" style="background:#eda100"></div><div class="sns-title">YouTube</div><div class="sns-badge" id="yt-badge"></div></div>
+  <div class="sl-row"><div class="sl-label">登録者数</div><input type="range" id="yt-fw" min="0" max="500000" step="1000" value="0"><div class="sl-val" id="yt-fw-v"></div></div>
+  <div class="sl-row"><div class="sl-label">月間投稿本数</div><input type="range" id="yt-posts" min="0" max="30" step="1" value="5"><div class="sl-val" id="yt-posts-v"></div></div>
+  <div class="sl-row"><div class="sl-label">1本あたり平均再生数<span class="tag tag-linked" id="yt-tag">フォロワー連動</span></div><input type="range" id="yt-views" min="0" max="500000" step="100" value="0"><div class="sl-val" id="yt-views-v"></div></div>
+  <div class="imp-row"><div class="imp-label">月間インプレッション</div><div class="imp-calc" id="yt-calc"></div><div class="imp-val" id="yt-imp"></div></div>
+</div>
+
+<div class="block-title mb">— 収益・ユーザー層設定 —</div>
+<div class="sl-row mb"><div class="sl-label">有料課金転換率（着地後）</div><input type="range" id="sl-cv" min="1" max="30" step="1" value="10" style="flex:1;accent-color:#2a78d6"><div class="sl-val" id="v-cv"></div></div>
+<div class="price-row"><div class="price-label">月額プラン単価（ライト）</div><div class="price-wrap"><button class="price-btn" onclick="adj('sl-price',-100)">−</button><input type="range" id="sl-price" min="100" max="10000" step="100" value="2000" style="flex:1;accent-color:#2a78d6"><button class="price-btn" onclick="adj('sl-price',100)">＋</button></div><div class="price-val" id="v-price"></div></div>
+<div class="price-row"><div class="price-label">ヘビー月間消費額</div><div class="price-wrap"><button class="price-btn" onclick="adj('sl-hs',-100)">−</button><input type="range" id="sl-hs" min="1000" max="100000" step="100" value="30000" style="flex:1;accent-color:#2a78d6"><button class="price-btn" onclick="adj('sl-hs',100)">＋</button></div><div class="price-val" id="v-hs"></div></div>
+<div class="price-row mb"><div class="price-label">ミドル月間消費額</div><div class="price-wrap"><button class="price-btn" onclick="adj('sl-ms',-100)">−</button><input type="range" id="sl-ms" min="100" max="30000" step="100" value="10000" style="flex:1;accent-color:#2a78d6"><button class="price-btn" onclick="adj('sl-ms',100)">＋</button></div><div class="price-val" id="v-ms"></div></div>
+<div class="sl-row"><div class="sl-label">ヘビー比率</div><input type="range" id="sl-hp" min="1" max="20" step="1" value="4" style="flex:1;accent-color:#2a78d6"><div class="sl-val" id="v-hp"></div></div>
+<div class="sl-row mb"><div class="sl-label">ミドル比率</div><input type="range" id="sl-mp" min="1" max="40" step="1" value="16" style="flex:1;accent-color:#2a78d6"><div class="sl-val" id="v-mp"></div></div>
+
+<div class="divider"></div>
+<div class="section-label">SNS別 月間インプレッション → panpan着地数</div>
+<div class="summary-grid mb" id="sns-summary"></div>
+<div class="section-label">合算ファネル（1アカウント・月次）</div>
+<div id="funnel" class="mb"></div>
+<div class="divider"></div>
+<div class="section-label">ユーザー層別収益（1アカウント・月次）</div>
+<div class="tier-box" id="tier-box"></div>
+<div class="divider"></div>
+<div class="section-label">全タレント合算・月次収益</div>
+<div class="kpi-grid mb" id="kpi-grid"></div>
+<table class="rev-table"><thead><tr><th>項目</th><th style="text-align:right">金額</th><th style="text-align:right">比率</th></tr></thead><tbody id="rev-body"></tbody></table>
+
+</div>
+<script>
+const SNS_CFG=[
+  {key:'tt',label:'TikTok',    color:'#1d9e75',landRate:.015,calcViews:fw=>fw<=0?0:fw<3000?Math.round(fw*.8):fw<10000?Math.round(fw*.6):fw<50000?Math.round(fw*.4):Math.round(fw*.3)},
+  {key:'x', label:'X',         color:'#2a78d6',landRate:.025,calcViews:fw=>fw<=0?0:fw<1000?500:fw<10000?Math.round(fw*.3):fw<100000?Math.round(fw*.2):Math.round(fw*.15)},
+  {key:'ig',label:'Instagram', color:'#e34948',landRate:.010,calcViews:fw=>fw<=0?0:fw<1000?300:fw<10000?Math.round(fw*.25):fw<100000?Math.round(fw*.18):Math.round(fw*.12)},
+  {key:'yt',label:'YouTube',   color:'#eda100',landRate:.040,calcViews:fw=>fw<=0?0:fw<1000?500:fw<10000?Math.round(fw*.4):fw<100000?Math.round(fw*.35):Math.round(fw*.3)},
+];
+const SCENARIOS=[
+  {ttFw:13000,ttPosts:10,xFw:0,xPosts:20,igFw:0,igPosts:10,ytFw:0,ytPosts:5,cv:5, price:1980,talent:5, hp:2,hs:20000,mp:10,ms:8000},
+  {ttFw:13000,ttPosts:10,xFw:5000,xPosts:20,igFw:0,igPosts:10,ytFw:0,ytPosts:5,cv:10,price:2000,talent:7, hp:4,hs:30000,mp:16,ms:10000},
+  {ttFw:50000,ttPosts:10,xFw:20000,xPosts:20,igFw:30000,igPosts:10,ytFw:5000,ytPosts:5,cv:15,price:2500,talent:10,hp:7,hs:50000,mp:20,ms:15000},
+];
+const manual={tt:false,x:false,ig:false,yt:false};
+const fmt=n=>'¥'+Math.round(n).toLocaleString();
+const fmtN=n=>{n=Math.round(n);if(n>=10000)return(n/10000).toFixed(1)+'万';if(n>=1000)return(n/1000).toFixed(1)+'千';return n.toLocaleString();};
+const fmtF=n=>Math.round(n).toLocaleString();
+const el=id=>document.getElementById(id);
+const gv=id=>parseFloat(el(id).value);
+
+function adj(id,d){const s=el(id);s.value=Math.min(Math.max(+s.min,Math.round((+s.value+d)/100)*100),+s.max);render();}
+
+function setLinked(k,fw){
+  const cfg=SNS_CFG.find(s=>s.key===k);
+  el(k+'-views').value=cfg.calcViews(fw);
+  manual[k]=false;
+  const t=el(k+'-tag');t.className='tag tag-linked';t.textContent='フォロワー連動';t.onclick=null;
+}
+
+function setScenario(idx){
+  document.querySelectorAll('.sc-btn').forEach((b,i)=>b.classList.toggle('on',i===idx));
+  const s=SCENARIOS[idx];
+  el('tt-fw').value=s.ttFw;el('tt-posts').value=s.ttPosts;
+  el('x-fw').value=s.xFw;el('x-posts').value=s.xPosts;
+  el('ig-fw').value=s.igFw;el('ig-posts').value=s.igPosts;
+  el('yt-fw').value=s.ytFw;el('yt-posts').value=s.ytPosts;
+  el('sl-cv').value=s.cv;el('sl-price').value=s.price;el('sl-talent').value=s.talent;
+  el('sl-hp').value=s.hp;el('sl-hs').value=s.hs;el('sl-mp').value=s.mp;el('sl-ms').value=s.ms;
+  ['tt','x','ig','yt'].forEach(k=>setLinked(k,parseFloat(el(k+'-fw').value)));
+  render();
+}
+
+SNS_CFG.forEach(({key:k})=>{
+  el(k+'-fw').addEventListener('input',function(){
+    if(!manual[k])setLinked(k,+this.value);
+    render();
+  });
+  el(k+'-views').addEventListener('input',function(){
+    manual[k]=true;
+    const t=el(k+'-tag');t.className='tag tag-manual';t.textContent='手動 ↩リセット';
+    t.onclick=()=>{setLinked(k,gv(k+'-fw'));render();};
+    render();
+  });
+  el(k+'-posts').addEventListener('input',render);
+});
+['sl-cv','sl-price','sl-talent','sl-hp','sl-hs','sl-mp','sl-ms'].forEach(id=>el(id).addEventListener('input',render));
+
+function render(){
+  const talent=gv('sl-talent'),cv=gv('sl-cv')/100,price=gv('sl-price');
+  const hp=gv('sl-hp'),hs=gv('sl-hs'),mp=gv('sl-mp'),ms=gv('sl-ms'),lp=Math.max(0,100-hp-mp);
+  el('v-talent').textContent=Math.round(talent)+'人';
+  el('v-cv').textContent=gv('sl-cv')+'%';
+  el('v-price').textContent=fmt(price);el('v-hs').textContent=fmt(hs);el('v-ms').textContent=fmt(ms);
+  el('v-hp').textContent=hp+'%';el('v-mp').textContent=mp+'%';
+
+  let tImp=0,tLand=0,sHtml='';
+  SNS_CFG.forEach(s=>{
+    const k=s.key,fw=gv(k+'-fw'),posts=gv(k+'-posts'),views=gv(k+'-views');
+    const imp=fw<=0?0:Math.round(posts*views);
+    const land=Math.round(imp*s.landRate);
+    tImp+=imp;tLand+=land;
+    el(k+'-fw-v').textContent=fmtF(fw)+'人';
+    el(k+'-posts-v').textContent=posts+'本';
+    el(k+'-views-v').textContent=fmtF(views)+'回';
+    el(k+'-calc').textContent=fw<=0?'フォロワー0のため除外':posts+'本 × '+fmtF(views)+'回 =';
+    el(k+'-imp').textContent=fmtN(imp)+'回';
+    el(k+'-badge').textContent=imp>0?'月'+fmtN(imp):'';
+    if(imp>0)sHtml+=`<div class="sns-card"><div class="sns-card-head"><div class="sns-dot" style="background:${s.color};width:8px;height:8px;border-radius:50%"></div><div class="sns-card-name">${s.label}</div></div><div class="sns-card-imp">${fmtN(imp)}<span style="font-size:11px;font-weight:400;color:#aaa">回</span></div><div class="sns-card-land">着地 ${fmtF(land)}人（${(s.landRate*100).toFixed(1)}%）</div></div>`;
+  });
+  el('sns-summary').innerHTML=sHtml||'<p style="font-size:12px;color:#aaa">フォロワー数と投稿数を入力してください</p>';
+
+  const payN=Math.round(tLand*cv);
+  const steps=[
+    {label:'月間インプレッション合計',n:tImp,color:'#2a78d6'},
+    {label:'panpan着地（SNS合算）',n:tLand,color:'#1d9e75'},
+    {label:'有料課金',n:payN,color:'#e34948'},
+  ];
+  let fhtml='';
+  steps.forEach((s,i)=>{
+    const pct=steps[0].n>0?Math.max(3,Math.round(s.n/steps[0].n*100)):3;
+    const rate=i===0?'':'→ '+(steps[i-1].n>0?(s.n/steps[i-1].n*100).toFixed(1):'0')+'%';
+    fhtml+=`<div class="fn-row"><div class="fn-label">${s.label}</div><div class="fn-track"><div class="fn-bar" style="width:${pct}%;background:${s.color}">${fmtF(s.n)}</div></div><div class="fn-right"><span class="fn-count">${fmtN(s.n)}</span><span class="fn-rate">${rate}</span></div></div>`;
+  });
+  el('funnel').innerHTML=fhtml;
+
+  const hN=Math.max(0,Math.round(payN*hp/100)),mN=Math.max(0,Math.round(payN*mp/100)),lN=Math.max(0,payN-hN-mN);
+  const hRev=hN*hs,mRev=mN*ms,lRev=lN*price,gross1=hRev+mRev+lRev;
+  const arpu=payN>0?Math.round(gross1/payN):0;
+  const g1p=gross1>0?Math.round(hRev/gross1*100):0,g2p=gross1>0?Math.round(mRev/gross1*100):0,g3p=Math.max(0,100-g1p-g2p);
+
+  el('tier-box').innerHTML=`
+    <div class="tier-row"><div class="t-dot" style="background:#e34948"></div><div class="t-name">ヘビー（${hp}%）</div><div class="t-detail">${fmtF(hN)}人 × ${fmt(hs)}</div><div class="t-rev h">${fmt(hRev)}<br><span style="font-size:11px;font-weight:400;color:#aaa">売上${g1p}%</span></div></div>
+    <div class="tier-row"><div class="t-dot" style="background:#eda100"></div><div class="t-name">ミドル（${mp}%）</div><div class="t-detail">${fmtF(mN)}人 × ${fmt(ms)}</div><div class="t-rev m">${fmt(mRev)}<br><span style="font-size:11px;font-weight:400;color:#aaa">売上${g2p}%</span></div></div>
+    <div class="tier-row"><div class="t-dot" style="background:#2a78d6"></div><div class="t-name">ライト（${lp}%）</div><div class="t-detail">${fmtF(lN)}人 × ${fmt(price)}</div><div class="t-rev">${fmt(lRev)}<br><span style="font-size:11px;font-weight:400;color:#aaa">売上${g3p}%</span></div></div>
+    <div class="tier-row"><div class="t-dot" style="background:transparent"></div><div class="t-name" style="font-weight:700;color:#111">合計</div><div class="t-detail" style="font-size:12px;color:#aaa">ARPU ${fmt(arpu)}/人</div><div class="t-rev h">${fmt(gross1)}</div></div>`;
+
+  const grossAll=gross1*talent,platform=Math.round(grossAll*.20),ops=Math.round(grossAll*.44),agency=Math.round(grossAll*.36);
+  el('kpi-grid').innerHTML=`
+    <div class="kpi"><div class="kpi-l">課金者数（全体）</div><div class="kpi-v">${fmtF(payN*talent)}人</div><div class="kpi-s">ヘビー${fmtF(hN*talent)} / ミドル${fmtF(mN*talent)}</div></div>
+    <div class="kpi"><div class="kpi-l">月次総売上</div><div class="kpi-v">${fmt(grossAll)}</div><div class="kpi-s">ARPU ${fmt(arpu)}/人</div></div>
+    <div class="kpi hi"><div class="kpi-l">代理店＋キャラクター分配</div><div class="kpi-v">${fmt(agency)}</div><div class="kpi-s">月次・36%</div></div>
+    <div class="kpi"><div class="kpi-l">panpan収益</div><div class="kpi-v">${fmt(platform+ops)}</div><div class="kpi-s">手数料+運用費</div></div>`;
+
+  el('rev-body').innerHTML=`
+    <tr><td>ヘビー収益（${fmtF(hN*talent)}人）</td><td style="text-align:right">${fmt(hRev*talent)}</td><td style="text-align:right">${g1p}%</td></tr>
+    <tr><td>ミドル収益（${fmtF(mN*talent)}人）</td><td style="text-align:right">${fmt(mRev*talent)}</td><td style="text-align:right">${g2p}%</td></tr>
+    <tr><td>ライト収益（${fmtF(lN*talent)}人）</td><td style="text-align:right">${fmt(lRev*talent)}</td><td style="text-align:right">${g3p}%</td></tr>
+    <tr class="row-total"><td>総売上</td><td style="text-align:right">${fmt(grossAll)}</td><td style="text-align:right">100%</td></tr>
+    <tr><td>プラットフォーム手数料</td><td style="text-align:right">▲${fmt(platform)}</td><td style="text-align:right">20%</td></tr>
+    <tr><td>panpan運用費（フルAI）</td><td style="text-align:right">▲${fmt(ops)}</td><td style="text-align:right">44%</td></tr>
+    <tr class="row-agency"><td>代理店＋キャラクター分配</td><td style="text-align:right">${fmt(agency)}</td><td style="text-align:right">36%</td></tr>`;
+}
+
+setLinked('tt', 13000);
+render();
+</script>
+</body>
+</html>
